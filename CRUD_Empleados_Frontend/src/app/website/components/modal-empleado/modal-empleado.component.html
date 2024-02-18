@@ -1,0 +1,238 @@
+<h2 mat-dialog-title>{{ esEditar ? "Actualizar" : "Nuevo" }} Empleado</h2>
+
+<mat-dialog-content>
+  <form id="formulario" [formGroup]="formulario" (submit)="onSubmit()">
+    <div class="row">
+      <div class="col-12 col-lg-4">
+        <mat-form-field class="w-100">
+          <mat-label>Nombres</mat-label>
+          <input matInput type="text" formControlName="nombres" />
+
+          <mat-error *ngIf="formulario.get('nombres')?.hasError('required')">
+            Campo requerido
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-12 col-lg-4">
+        <mat-form-field class="w-100">
+          <mat-label>Apellidos</mat-label>
+          <input matInput type="text" formControlName="apellidos" />
+
+          <mat-error *ngIf="formulario.get('apellidos')?.hasError('required')">
+            Campo requerido
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-12 col-lg-4">
+        <mat-form-field class="w-100">
+          <mat-label>Correo</mat-label>
+          <input matInput type="email" formControlName="correo" />
+
+          <mat-error *ngIf="formulario.get('correo')?.hasError('required')">
+            Campo requerido
+          </mat-error>
+
+          <mat-error *ngIf="formulario.get('correo')?.hasError('email')">
+            Introduce un correo válido
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 col-lg-4">
+        <mat-form-field class="w-100">
+          <mat-label>Fecha de Nacimiento</mat-label>
+          <input
+            matInput
+            [matDatepicker]="picker"
+            formControlName="fechaNacimiento"
+          />
+          <mat-datepicker-toggle
+            matIconSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+
+          <mat-error
+            *ngIf="formulario.get('fechaNacimiento')?.hasError('required')"
+          >
+            Campo requerido
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-12 col-lg-4">
+        <mat-form-field class="w-100">
+          <mat-label>Sueldo</mat-label>
+          <input matInput type="number" formControlName="sueldo" />
+
+          <mat-error
+            *ngIf="
+              formulario?.get('sueldo')?.invalid &&
+              formulario?.get('sueldo')?.touched
+            "
+          >
+            Campo requerido
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-12 col-lg-4">
+        <mat-form-field class="w-100">
+          <mat-label>Estado Civil</mat-label>
+          <mat-select formControlName="estadoCivil">
+            <mat-option value="0">Seleccione</mat-option>
+            <mat-option value="Soltero">Soltero</mat-option>
+            <mat-option value="Casado">Casado</mat-option>
+            <mat-option value="Divorciado">Divorciado</mat-option>
+          </mat-select>
+
+          <mat-error
+            *ngIf="
+              formulario?.get('estadoCivil')?.invalid &&
+              formulario?.get('estadoCivil')?.touched
+            "
+          >
+            Campo requerido
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 col-lg-4">
+        <mat-form-field class="w-100">
+          <mat-label>Area de Trabajo</mat-label>
+
+          <mat-select formControlName="idAreaTrabajo">
+            <mat-option [value]="0">Seleccione</mat-option>
+            <mat-option
+              *ngFor="let item of data.listaAreaTrabajo"
+              [value]="item.id"
+              >{{ item.areaDeTrabajo }}</mat-option
+            >
+          </mat-select>
+
+          <mat-error
+            *ngIf="
+              formulario?.get('idAreaTrabajo')?.invalid &&
+              formulario?.get('idAreaTrabajo')?.touched
+            "
+          >
+            Campo requerido
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-12 col-lg-4">
+        <mat-form-field class="w-100">
+          <mat-label>Pais de Nacimiento</mat-label>
+          <mat-select formControlName="idPaisNacimiento">
+            <mat-option [value]="0">Seleccione</mat-option>
+            <mat-option *ngFor="let item of data.listaPais" [value]="item.id">{{
+              item.nombrePais
+            }}</mat-option>
+          </mat-select>
+
+          <mat-error
+            *ngIf="
+              formulario?.get('idPaisNacimiento')?.invalid &&
+              formulario?.get('idPaisNacimiento')?.touched
+            "
+          >
+            Campo requerido
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-12 col-lg-4">
+        <mat-form-field class="w-100">
+          <mat-label>Tipo de Documento</mat-label>
+          <mat-select formControlName="idTipoDocumento">
+            <mat-option [value]="0">Seleccione</mat-option>
+            <mat-option
+              *ngFor="let item of data.listaTipoDocumento"
+              [value]="item.id"
+              >{{ item.tipoDeDocumento }}</mat-option
+            >
+          </mat-select>
+
+          <mat-error
+            *ngIf="
+              formulario?.get('idTipoDocumento')?.invalid &&
+              formulario?.get('idTipoDocumento')?.touched
+            "
+          >
+            Campo requerido
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 col-lg-4">
+        <mat-form-field class="w-100" floatLabel="always">
+          <mat-label>Teléfono</mat-label>
+          <span matTextPrefix>+51&nbsp;</span>
+          <input matInput type="text" formControlName="telefono" />
+
+          <mat-error *ngIf="formulario.get('telefono')?.hasError('required')">
+            Campo requerido
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-12 col-lg-4">
+        <mat-form-field class="w-100">
+          <mat-label>Número de Documento</mat-label>
+          <input matInput type="text" formControlName="nroDocumento" />
+
+          <mat-error
+            *ngIf="formulario.get('nroDocumento')?.hasError('required')"
+          >
+            Campo requerido
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-12 col-lg-4">
+        <mat-form-field class="w-100">
+          <mat-label>Sexo</mat-label>
+          <mat-select formControlName="sexo">
+            <mat-option [value]="0">Seleccione</mat-option>
+            <mat-option value="M">Masculino</mat-option>
+            <mat-option value="F">Femenino</mat-option>
+          </mat-select>
+
+          <mat-error
+            *ngIf="
+              formulario?.get('sexo')?.invalid &&
+              formulario?.get('sexo')?.touched
+            "
+          >
+            Campo requerido
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button
+    type="submit"
+    mat-flat-button
+    [color]="esEditar ? 'accent' : 'primary'"
+    form="formulario"
+    [disabled]="formulario.invalid"
+  >
+    <mat-icon>add</mat-icon> {{ esEditar ? "Actualizar" : "Registrar" }}
+  </button>
+
+  <button mat-flat-button color="warn" cdkFocusInitial (click)="cerrarModal()">
+    <mat-icon>cancel</mat-icon> Cancelar
+  </button>
+</mat-dialog-actions>

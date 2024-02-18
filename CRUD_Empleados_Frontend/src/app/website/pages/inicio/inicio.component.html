@@ -1,0 +1,53 @@
+<div
+  class="container-xl d-flex justify-content-center align-center align-items-center"
+  style="height: 100dvh"
+>
+  <div class="flex-fill">
+    <h1 class="text-center fw-bolder fs-1">CRUD DE EMPLEADOS</h1>
+
+    <div class="d-flex column-gap-4 justify-content-between flex-wrap">
+      <div class="d-flex gap-4">
+        <mat-form-field>
+          <mat-label>Estado del Empleado</mat-label>
+          <mat-select [(value)]="estadoEmpleadoABuscar">
+            <mat-option value="1">Activo</mat-option>
+            <mat-option value="0">Inactivo</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <div class="mt-2">
+          <button
+            mat-mini-fab
+            color="primary"
+            matTooltipPosition="after"
+            matTooltip="Buscar Empleado"
+            (click)="buscarEmpleados()"
+          >
+            <mat-icon>search</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <div>
+        <div class="mt-2">
+          <button
+            mat-mini-fab
+            color="primary"
+            matTooltipPosition="above"
+            matTooltip="Añadir Empleado"
+            (click)="abrirModalDeEmpleadoRegistro()"
+          >
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <app-tabla-empleado
+      [dataSource]="dataSource"
+      (desactivarEmpleado)="desactivarEmpleado($event)"
+      (activarEmpleado)="activarEmpleado($event)"
+      (abrirModalDeEmpleadoActualizar)="abrirModalDeEmpleadoActualizar($event)"
+    ></app-tabla-empleado>
+  </div>
+</div>

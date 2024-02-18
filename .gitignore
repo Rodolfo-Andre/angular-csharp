@@ -1,0 +1,5 @@
+# Incluir reglas específicas para Angular
+/CRUD_Empleados_Frontend/.gitignore
+
+# Incluir reglas específicas para C#
+/CRUD_Empleados_Backend/.gitignore
